@@ -19,17 +19,22 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
         h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; font-weight: 700; }
         a { text-decoration: none; color: inherit; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; background-color: rgba(252, 251, 249, 0.95); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .nav-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; color: var(--text-dark); }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; color: var(--text-dark); z-index: 102; }
         .logo-icon div { width: 16px; height: 16px; background-color: var(--text-dark); display: inline-block; }
+        
         .nav-links { display: flex; gap: 32px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
         .nav-links a:hover { color: var(--accent-gold); }
+
+        /* Hamburger Menu Icon */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 102; }
+        .hamburger span { width: 25px; height: 2px; background-color: var(--text-dark); transition: 0.3s; }
 
         section { padding: 96px 0; }
         .section-header { font-size: 36px; margin-bottom: 48px; display: flex; align-items: center; gap: 24px; }
@@ -81,10 +86,48 @@
         .footer-content { display: flex; justify-content: space-between; }
         .footer-contact p { font-size: 13px; color: #E6DFD3; margin-bottom: 8px; }
 
+        /* MOBILE RESPONSIVE CSS */
         @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background-color: var(--bg-light);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                gap: 40px;
+                font-size: 18px;
+            }
+
+            .nav-links.active { right: 0; }
+            
+            /* Hamburger 'X' Animation */
+            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            /* Mobile Layout Tweaks */
+            .container { padding: 0 20px; }
+            section { padding: 64px 0; }
+            .hero { padding: 60px 0; }
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 18px; }
+            .section-header { font-size: 28px; margin-bottom: 32px; }
+            
             .about-grid, .exp-card { grid-template-columns: 1fr; flex-direction: column; gap: 32px; }
-            .hero h1 { font-size: 48px; }
-            .nav-links { display: none; }
+            .competencies, .proj-card { padding: 24px; }
+            
+            .edu-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .exp-card { padding: 24px; gap: 24px; }
+            
+            .footer-content { flex-direction: column; gap: 32px; text-align: center; }
         }
     </style>
 </head>
@@ -95,6 +138,13 @@
             <div class="logo-icon"><div></div></div>
             <span class="logo">Garnett Hutahaean</span>
         </div>
+        
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About Me</a>
@@ -165,21 +215,37 @@
     </footer>
 
     <script>
+        // --- MOBILE MENU SCRIPT ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // --- DATA ENGINE SCRIPT ---
         fetch('portfolio_data.json')
             .then(response => response.json())
             .then(data => {
                 
-                // 1. Render Hero
                 document.getElementById('hero-container').innerHTML = `
                     <p class="hero-subtitle">${data.hero.subtitle}</p>
                     <h1>${data.hero.title}</h1>
                     <p>${data.hero.description}</p>
                 `;
 
-                // 2. Render About Bio
                 document.getElementById('about-text-container').innerHTML = data.about.bio.map(p => `<p>${p}</p>`).join('');
 
-                // 3. Render Competencies
                 document.getElementById('competencies-container').innerHTML = data.about.competencies.map(comp => `
                     <div class="comp-item">
                         <h4>${comp.category}</h4>
@@ -187,10 +253,8 @@
                     </div>
                 `).join('');
 
-                // 4. Render Technologies
                 document.getElementById('tech-container').innerHTML = data.about.technologies.map(tech => `<span>${tech}</span>`).join('');
 
-                // 5. Render Education
                 document.getElementById('education-container').innerHTML = data.educations.map(edu => `
                     <div class="edu-card">
                         <div class="edu-header">
@@ -202,7 +266,6 @@
                     </div>
                 `).join('');
 
-                // 6. Render Experiences
                 document.getElementById('experiences-container').innerHTML = data.experiences.map(exp => `
                     <div class="exp-card">
                         <div class="exp-meta">
@@ -219,7 +282,6 @@
                     </div>
                 `).join('');
 
-                // 7. Render Works
                 document.getElementById('works-container').innerHTML = data.works.map(work => `
                     <div class="proj-card">
                         <h3 style="font-size: 24px;">${work.title}</h3>
@@ -229,7 +291,6 @@
                     </div>
                 `).join('');
 
-                // 8. Render Fun Writing
                 document.getElementById('fun-writing-container').innerHTML = data.fun_writing.map(post => `
                     <div class="proj-card">
                         <h3 style="font-size: 24px;">${post.title}</h3>
@@ -245,5 +306,4 @@
             });
     </script>
 </body>
-</html>
 </html>
