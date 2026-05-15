@@ -1,0 +1,85 @@
+{
+    "hero": {
+        "subtitle": "Portfolio & Research",
+        "title": "Mathematics Undergraduate Student & Aspiring Quant.",
+        "description": "Applying rigorous mathematical modeling, statistical analysis, and algorithmic design to solve complex problems in financial markets."
+    },
+    "about": {
+        "bio": [
+            "I am Garnett Bertrand Pardomuan Hutahaean, a Mathematics undergraduate student at Gadjah Mada University highly passionate about Quantitative Finance.",
+            "With a deep foundation in stochastic calculus and time-series forecasting, I thrive in environments where data-driven decision making is paramount. I approach financial markets as complex systems that require rigorous empirical analysis and precision engineering to navigate effectively."
+        ],
+        "competencies": [
+            {
+                "category": "Mathematical Modeling",
+                "skills": "Stochastic Calculus, PDE, Monte Carlo"
+            },
+            {
+                "category": "Algorithmic Trading",
+                "skills": "Market Microstructure, Statistical Arbitrage"
+            },
+            {
+                "category": "Data Science",
+                "skills": "Time-Series Analysis, Machine Learning"
+            }
+        ],
+        "technologies": ["Python", "C++", "R", "SQL", "Pandas/NumPy", "TensorFlow"]
+    },
+    "educations": [
+        {
+            "degree": "Bachelor of Mathematics",
+            "period": "2023 — NOW",
+            "institution": "Gadjah Mada University",
+            "description": "Coursework heavily involved linear algebra, probability theory, real analysis, computational mathematics, and calculus. Actively doing individual researches and projects on applied math, specialize in Quantitative Finance and Data Science."
+        },
+        {
+            "degree": "High School",
+            "period": "2020 — 2023",
+            "institution": "De Britto College Yogyakarta",
+            "description": "Major in Natural Science. Member of Mathematics Olympiad Club and achieve first place in Olimpiade Sains Nasional (OSN) on 2022 at regional stage."
+        }
+    ],
+    "experiences": [
+        {
+            "title": "Fund Manager",
+            "company": "Self Employed",
+            "period": "Jan 2026 — Present",
+            "location": "Yogyakarta",
+            "bullets": [
+                "Managing family fund with AUM of 15 million Rupiah.",
+                "Developed and executed ML trading strategies for Indonesian Exchange with 1.4 Sharpe Ratio and 9.8% maximum draw down."
+            ]
+        },
+        {
+            "title": "Mathematics Tutor",
+            "company": "Quipper",
+            "period": "Aug 2025 — Apr 2026",
+            "location": "Yogyakarta",
+            "bullets": [
+                "Built learning materials and exercise problems.",
+                "Taught a class of 15 to 36 students."
+            ]
+        }
+    ],
+    "works": [
+        {
+            "title": "Cross Sectional Stock Return Prediction",
+            "description": "Applying Machine Learning models to predict cross-sectional returns for Indonesia Stock Exchange (IDX) equities using historical data from 2021-2025.",
+            "tags": ["Machine Learning", "Python", "IDX"],
+            "link": "#"
+        },
+        {
+            "title": "Blackjack Monte Carlo Simulation",
+            "description": "Simulating optimal strategy guides for 1-5 players (hit, stand, or double) using advanced Monte Carlo methods.",
+            "tags": ["Monte Carlo", "Probability", "C++"],
+            "link": "#"
+        }
+    ],
+    "fun_writing": [
+        {
+            "title": "Mainstream Math & Real-World Applications",
+            "description": "Breaking down complex mathematical concepts and puzzle logic for a broader audience through engaging digital content and short-form video scripts.",
+            "link": "#"
+        }
+    ]
+}
